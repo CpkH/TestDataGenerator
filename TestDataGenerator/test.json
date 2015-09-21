@@ -1,0 +1,75 @@
+﻿{
+    "table": "DEMO_TABLE", 
+    "times": 10000, 
+    "fields": [
+        {
+            "name": "FIELD1", 
+            "type": "number", 
+            "rule": {
+                "type": "random", 
+                "begin": 1, 
+                "end": 100, 
+                "dot": 1
+            }
+        }, 
+        {
+            "name": "FIELD2", 
+            "type": "number", 
+            "rule": {
+                "type": "seq", 
+                "begin": 1, 
+                "end": 100, 
+                "step": 1
+            }
+        }, 
+        {
+            "name": "FIELD3", 
+            "type": "number", 
+            "rule": {
+                "type": "fix", 
+                "value": 1
+            }
+        },
+        {
+            "name": "FIELD4",
+            "type": "number",
+            "rule": {
+                "type": "list",
+                "items": [
+                    1,
+                    2,
+                    3
+                ]
+            }
+        },
+        {
+            "name": "FIELD1",
+            "type": "string",
+            "rule": {
+                "type": "random",
+                "length": 6,
+                "seed": "种子字符串"
+            }
+        },
+        {
+            "name": "FIELD1", 
+            "type": "string", 
+            "rule": {
+                "type": "fix",
+                "value": "fix value"
+            }
+        },
+        {
+            "name": "FIELD1", 
+            "type": "string", 
+            "rule": {
+                "type": "list",
+                "items": [
+                    "a",
+                    "b",
+                    "c"
+                ]
+            }
+        }
+    ]
+}

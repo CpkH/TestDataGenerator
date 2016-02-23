@@ -10,6 +10,8 @@ namespace TestDataGenerator
         [STAThread]
         private static void Main(string[] args)
         {
+            Console.WriteLine(new TimeSpan().ToString());
+
             if (args.Length > 0)
             {
                 ConsoleProcess.Run(args);

@@ -115,7 +115,7 @@ namespace TestDataGenerator
                     value = value + Config.Step;
                     if (value > Config.End)
                     {
-                        value = value - Config.End;
+                        value = Config.Begin;
                     }
                 }
 
@@ -125,10 +125,6 @@ namespace TestDataGenerator
             public override void InitConfig(IDictionary<string, object> config)
             {
                 base.InitConfig(config);
-
-                Config.Begin = Convert.ToInt32(config["begin"]);
-                Config.End = Convert.ToInt32(config["end"]);
-                Config.Step = Convert.ToInt32(config["step"]);
 
                 if (Config.Begin > Config.End &&
                     Config.Step < 0)
@@ -225,6 +221,53 @@ namespace TestDataGenerator
     {
         public DateTimeRuleBuilders()
         {
+            ruleBuilders[SEQ] = typeof(SeqRule);
+        }
+
+        public class SeqRule : Rule<SeqRule.RuleConfig>
+        {
+            private DateTime? value;
+
+            public override string Calculate()
+            {
+                if (value == null)
+                {
+                    value = Config.Begin;
+                }
+                else
+                {
+                    value = value + Config.Step;
+                    if (value > Config.End)
+                    {
+                        value = Config.End;
+                    }
+                }
+
+                if (value != null)
+                {
+                    return "'" + value.Value.ToString("yyyy-MM-dd HH:mm:ssK") + "'";
+                }
+                return "null";
+            }
+
+            public override void InitConfig(IDictionary<string, object> config)
+            {
+                base.InitConfig(config);
+
+                if (Config.Begin > Config.End)
+                {
+                    var tmp = Config.End;
+                    Config.End = Config.Begin;
+                    Config.Begin = tmp;
+                }
+            }
+
+            public class RuleConfig
+            {
+                public DateTime? Begin { get; set; }
+                public DateTime? End { get; set; }
+                public TimeSpan Step { get; set; }
+            }
         }
     }
 }
